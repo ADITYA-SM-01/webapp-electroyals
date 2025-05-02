@@ -3,17 +3,17 @@ import { SimpleAnimation, fadeIn, slideUp } from "../common/SimpleAnimation";
 
 const AboutHero = () => {
   return (
-    <div className="relative bg-gradient-to-b from-gray-900/50 to-electroyals-navy/50 dark:from-gray-900/70 dark:to-electroyals-navy/70 pt-24 pb-16 md:pt-36 md:pb-24">
+    <div className="relative bg-gradient-to-b from-gray-900/50 to-electroyals-navy/50 dark:from-gray-900/70 dark:to-electroyals-navy/70 pt-16 pb-12 md:pt-36 md:pb-24">
       {/* Space-themed decorations */}
       <div className="absolute inset-0 overflow-hidden">
         <SimpleAnimation 
           variants={fadeIn}
-          className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-3xl opacity-70"
+          className="absolute -top-20 sm:-top-40 -right-20 sm:-right-40 w-60 sm:w-80 h-60 sm:h-80 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-3xl opacity-70"
         ></SimpleAnimation>
         <SimpleAnimation 
           variants={fadeIn}
           delay={0.3}
-          className="absolute bottom-0 left-0 w-60 h-60 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl opacity-70"
+          className="absolute bottom-0 left-0 w-40 sm:w-60 h-40 sm:h-60 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-3xl opacity-70"
         ></SimpleAnimation>
       </div>
 
@@ -21,14 +21,14 @@ const AboutHero = () => {
         <div className="max-w-4xl mx-auto text-center">
           <SimpleAnimation 
             variants={slideUp}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 sm:mb-6"
           >
             About <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">Our Cosmic Journey</span>
           </SimpleAnimation>
           <SimpleAnimation 
             variants={slideUp}
             delay={0.3}
-            className="mt-6 text-lg sm:text-xl text-gray-300 leading-relaxed"
+            className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed px-2 sm:px-0"
           >
             Explore the story of our interstellar team as we navigate the digital universe,
             pushing boundaries and creating stellar solutions for our clients across the galaxy.

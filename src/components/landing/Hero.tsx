@@ -15,7 +15,15 @@ const Hero = () => {
           className="h-full w-full" 
           showStars={true} 
           rotate={true} 
+          topAreaHeight="40vh"
         />
+        
+        {/* Mobile interaction boundary indicator - only visible on small screens */}
+        <div className="md:hidden absolute top-[40vh] left-0 right-0 border-t border-blue-500/30 z-20 pointer-events-none">
+          <div className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500/30 text-blue-200 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+            Model control ↑ | Page scroll ↓
+          </div>
+        </div>
         
         {/* Subtle instruction tooltip */}
         <motion.div 
@@ -24,7 +32,8 @@ const Hero = () => {
           transition={{ duration: 0.5, delay: 1 }}
           className="absolute bottom-8 right-8 bg-indigo-600/50 px-3 py-2 rounded-lg z-20 text-xs text-white"
         >
-          <p>Click and drag to control • Scroll to zoom</p>
+          <p className="hidden md:block">Click and drag to control • Scroll to zoom</p>
+          <p className="md:hidden">Touch top area to control model • Bottom area to scroll</p>
         </motion.div>
       </div>
 

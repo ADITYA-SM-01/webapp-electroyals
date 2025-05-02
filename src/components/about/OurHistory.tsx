@@ -37,7 +37,7 @@ const timelineItems = [
 
 const OurHistory = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-900/90 to-electroyals-navy/80 text-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-900/90 to-electroyals-navy/80 text-white relative overflow-hidden">
       {/* Space-themed decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Stars */}
@@ -69,23 +69,23 @@ const OurHistory = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.15 }}
           transition={{ duration: 2 }}
-          className="absolute -top-20 -right-20 w-60 h-60 bg-blue-500 rounded-full blur-3xl"
+          className="absolute -top-20 -right-20 w-40 sm:w-60 h-40 sm:h-60 bg-blue-500 rounded-full blur-3xl"
         />
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2 }}
-          className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500 rounded-full blur-3xl"
+          className="absolute bottom-0 left-0 w-40 sm:w-80 h-40 sm:h-80 bg-purple-500 rounded-full blur-3xl"
         />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SimpleAnimation variants={slideUp}>
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-indigo-400">
+          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-indigo-400">
               Our Interstellar Timeline
             </h2>
-            <p className="text-lg text-gray-300">
+            <p className="text-base sm:text-lg text-gray-300">
               A journey through time and space - key milestones of our cosmic expedition.
             </p>
           </div>
@@ -98,45 +98,56 @@ const OurHistory = () => {
             whileInView={{ height: '100%' }}
             viewport={{ once: true }}
             transition={{ duration: 1.5 }}
-            className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-600 rounded-full"
+            className="absolute left-4 md:left-1/2 top-0 bottom-0 transform md:-translate-x-1/2 w-1 bg-gradient-to-b from-blue-400 to-purple-600 rounded-full"
             style={{ boxShadow: "0 0 15px 2px rgba(79, 70, 229, 0.3)" }}
           ></motion.div>
           
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {timelineItems.map((item, index) => (
-              <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} relative`}>
+              <div 
+                key={index} 
+                className={`
+                  flex items-start relative
+                  ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}
+                  flex-row pl-12 md:pl-0
+                `}
+              >
                 {/* Timeline dot - glowing planetary node */}
                 <motion.div 
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 * index, duration: 0.5 }}
-                  className="absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full bg-blue-500 z-10"
+                  className="absolute left-4 md:left-1/2 top-6 transform md:-translate-x-1/2 w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-blue-500 z-10"
                   style={{ boxShadow: "0 0 15px 5px rgba(59, 130, 246, 0.5)" }}
                 ></motion.div>
                 
                 {/* Content card */}
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                <div className={`
+                  w-full md:w-5/12 
+                  ${index % 2 === 0 ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'}
+                  text-left
+                `}>
                   <SimpleAnimation 
                     variants={index % 2 === 0 ? slideRight : slideLeft} 
                     delay={0.2 * index}
                   >
                     <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm 
-                    rounded-xl p-6 shadow-md hover:shadow-xl 
+                    rounded-xl p-4 sm:p-6 shadow-md hover:shadow-xl 
                     hover:shadow-blue-500/20 
                     transition-all duration-300 hover:-translate-y-1 relative overflow-hidden 
                     border border-blue-500/20">
                       {/* Decorative element */}
-                      <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl"></div>
+                      <div className="absolute -top-4 -right-4 w-16 sm:w-20 h-16 sm:h-20 bg-blue-500/10 rounded-full blur-xl"></div>
                       
-                      <span className="inline-block bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm font-medium mb-3 border border-blue-600/30">{item.year}</span>
-                      <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
-                      <p className="text-gray-300">{item.description}</p>
+                      <span className="inline-block bg-blue-900/50 text-blue-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 border border-blue-600/30">{item.year}</span>
+                      <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2 text-white">{item.title}</h3>
+                      <p className="text-sm sm:text-base text-gray-300">{item.description}</p>
                     </div>
                   </SimpleAnimation>
                 </div>
                 
-                <div className="w-5/12"></div>
+                <div className="hidden md:block md:w-5/12"></div>
               </div>
             ))}
           </div>

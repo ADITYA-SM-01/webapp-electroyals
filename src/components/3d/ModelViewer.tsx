@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Stars } from '@react-three/drei';
 
@@ -18,8 +18,47 @@ function Model({ url, rotate = true }) {
   return <primitive ref={modelRef} object={scene} scale={2.5} position={[0, 0, 0]} />;
 }
 
-export default function ModelViewer({ modelPath, className = '', showStars = true, rotate = true }) {
+export default function ModelViewer({ modelPath, className = '', showStars = true, rotate = true, topAreaHeight = '40vh' }) {
   const containerRef = useRef();
+  const orbitControlsRef = useRef();
+  
+  // Add touch event handler to restrict interaction to top area only on mobile
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    // Function to determine if touch is in the top area
+    const isTouchInTopArea = (event) => {
+      const topAreaHeightPx = 
+        topAreaHeight.endsWith('vh') 
+          ? window.innerHeight * (parseInt(topAreaHeight) / 100)
+          : parseInt(topAreaHeight);
+      return event.touches[0].clientY < topAreaHeightPx;
+    };
+    
+    // Touch event handlers
+    const handleTouchStart = (event) => {
+      if (!isTouchInTopArea(event)) {
+        event.stopPropagation();
+      }
+    };
+    
+    const handleTouchMove = (event) => {
+      if (!isTouchInTopArea(event)) {
+        event.stopPropagation();
+      }
+    };
+    
+    // Add touch event listeners to Canvas container
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    
+    // Cleanup
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [topAreaHeight]);
   
   return (
     <div 
@@ -61,6 +100,7 @@ export default function ModelViewer({ modelPath, className = '', showStars = tru
         
         {/* Optimized Orbit Controls */}
         <OrbitControls 
+          ref={orbitControlsRef}
           makeDefault
           enableZoom={true}
           enablePan={false}
