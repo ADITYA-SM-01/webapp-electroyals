@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment, Stars } from '@react-three/drei';
 
@@ -18,47 +18,27 @@ function Model({ url, rotate = true }) {
   return <primitive ref={modelRef} object={scene} scale={2.5} position={[0, 0, 0]} />;
 }
 
-export default function ModelViewer({ modelPath, className = '', showStars = true, rotate = true, topAreaHeight = '40vh' }) {
+export default function ModelViewer({ modelPath, className = '', showStars = true, rotate = true, enableZoom = false }) {
   const containerRef = useRef();
-  const orbitControlsRef = useRef();
-  
-  // Add touch event handler to restrict interaction to top area only on mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect if we're on mobile
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    
-    // Function to determine if touch is in the top area
-    const isTouchInTopArea = (event) => {
-      const topAreaHeightPx = 
-        topAreaHeight.endsWith('vh') 
-          ? window.innerHeight * (parseInt(topAreaHeight) / 100)
-          : parseInt(topAreaHeight);
-      return event.touches[0].clientY < topAreaHeightPx;
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
     
-    // Touch event handlers
-    const handleTouchStart = (event) => {
-      if (!isTouchInTopArea(event)) {
-        event.stopPropagation();
-      }
-    };
+    // Check on initial load
+    checkIfMobile();
     
-    const handleTouchMove = (event) => {
-      if (!isTouchInTopArea(event)) {
-        event.stopPropagation();
-      }
-    };
-    
-    // Add touch event listeners to Canvas container
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
     
     // Cleanup
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('resize', checkIfMobile);
     };
-  }, [topAreaHeight]);
+  }, []);
   
   return (
     <div 
@@ -98,11 +78,10 @@ export default function ModelViewer({ modelPath, className = '', showStars = tru
           <Environment preset="sunset" />
         </Suspense>
         
-        {/* Optimized Orbit Controls */}
+        {/* Orbit Controls */}
         <OrbitControls 
-          ref={orbitControlsRef}
           makeDefault
-          enableZoom={true}
+          enableZoom={isMobile || enableZoom} // Enable zoom on mobile, or if specifically enabled
           enablePan={false}
           enableRotate={true}
           autoRotate={rotate}
@@ -112,9 +91,6 @@ export default function ModelViewer({ modelPath, className = '', showStars = tru
           minDistance={4}
           maxDistance={20}
           target={[0, 0, 0]}
-          /* Ensures mouse wheel works properly */
-          domElement={document.body}
-          /* Prevents control issues */
           enableDamping={true}
           dampingFactor={0.05}
         />

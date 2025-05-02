@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -6,42 +6,100 @@ import ModelViewer from '../3d/ModelViewer';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const modelContainerRef = useRef(null);
+  const modelRef = useRef(null);
+
+  // Detect if we're on mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Check on initial load
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
+
+  // Create a completely transparent overlay div to block touches in the bottom 60% on mobile
+  useEffect(() => {
+    if (!isMobile || !modelContainerRef.current) return;
+
+    // Create a block element for the bottom 60% of the screen
+    const blockElement = document.createElement('div');
+    blockElement.style.position = 'absolute';
+    blockElement.style.left = '0';
+    blockElement.style.right = '0';
+    blockElement.style.bottom = '0';
+    blockElement.style.top = '40vh';
+    blockElement.style.zIndex = '1000';
+    blockElement.style.background = 'transparent';
+    blockElement.id = 'model-touch-blocker';
+    
+    // Add it to the model container
+    modelContainerRef.current.appendChild(blockElement);
+    
+    // Setup touch handlers on the block element to prevent propagation to the model
+    const handleTouch = (e) => {
+      e.stopPropagation();
+    };
+    
+    blockElement.addEventListener('touchstart', handleTouch, { passive: false, capture: true });
+    blockElement.addEventListener('touchmove', handleTouch, { passive: false, capture: true });
+    blockElement.addEventListener('touchend', handleTouch, { passive: false, capture: true });
+    
+    // Cleanup
+    return () => {
+      if (blockElement && blockElement.parentNode) {
+        blockElement.removeEventListener('touchstart', handleTouch);
+        blockElement.removeEventListener('touchmove', handleTouch);
+        blockElement.removeEventListener('touchend', handleTouch);
+        blockElement.parentNode.removeChild(blockElement);
+      }
+    };
+  }, [isMobile]);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black">
-      {/* Expanded 3D model covering the entire screen */}
-      <div className="absolute inset-0 z-10">
-        <ModelViewer 
-          modelPath="/models/space.glb" 
-          className="h-full w-full" 
-          showStars={true} 
-          rotate={true} 
-          topAreaHeight="40vh"
-        />
-        
-        {/* Mobile interaction boundary indicator - only visible on small screens */}
-        <div className="md:hidden absolute top-[40vh] left-0 right-0 border-t border-blue-500/30 z-20 pointer-events-none">
-          <div className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500/30 text-blue-200 text-xs px-2 py-1 rounded-full whitespace-nowrap">
-            Model control ↑ | Page scroll ↓
-          </div>
+      {/* Full-screen 3D model container - must have highest z-index for desktop */}
+      <div ref={modelContainerRef} className="absolute inset-0 z-50">
+        {/* The 3D model */}
+        <div ref={modelRef} className="w-full h-full">
+          <ModelViewer 
+            modelPath="/models/space.glb" 
+            className="h-full w-full" 
+            showStars={true} 
+            rotate={true}
+            enableZoom={false}
+          />
         </div>
         
-        {/* Subtle instruction tooltip */}
+        {/* Instruction tooltip - Positioned differently on mobile vs desktop */}
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="absolute bottom-8 right-8 bg-indigo-600/50 px-3 py-2 rounded-lg z-20 text-xs text-white"
+          className={`absolute bg-indigo-600/70 px-4 py-2 rounded-lg z-1001 text-xs text-white shadow-lg pointer-events-none ${
+            isMobile ? 'top-20 right-4' : 'bottom-8 right-8'
+          }`}
         >
-          <p className="hidden md:block">Click and drag to control • Scroll to zoom</p>
-          <p className="md:hidden">Touch top area to control model • Bottom area to scroll</p>
+          <p className={isMobile ? "hidden" : "block"}>Click and drag to rotate the galaxy</p>
+          <p className={isMobile ? "block" : "hidden"}>Tap & drag in top area to control galaxy</p>
         </motion.div>
       </div>
 
-      {/* Main content container - with increased top padding */}
-      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-0 min-h-screen z-20">
+      {/* Main content container - lower z-index than model on desktop */}
+      <div className={`container relative mx-auto px-4 sm:px-6 lg:px-8 py-0 min-h-screen ${isMobile ? 'z-70' : 'z-40'}`}>
         <div className="flex items-center min-h-[80vh] pt-20 md:pt-24">
           {/* Text Content with proper spacing from top */}
-          <div className="w-full lg:w-2/3 z-30 select-none mt-16">
+          <div className={`w-full lg:w-2/3 select-none mt-16 ${isMobile ? 'z-80' : 'z-40'}`}>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -112,7 +170,7 @@ const Hero = () => {
       </div>
 
       {/* Subtle left-side gradient for text readability */}
-      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-black/60 to-transparent pointer-events-none z-20"></div>
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-black/60 to-transparent pointer-events-none z-10"></div>
 
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
