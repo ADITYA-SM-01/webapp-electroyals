@@ -7,7 +7,7 @@ const ContactMap = () => {
         title="Office Location"
         className="w-full h-full"
         frameBorder="0"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1081835413867!2d-122.41941108509517!3d37.774929979758675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c6c8f4459%3A0xb10ed6d9b5050fa5!2s123%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103!5e0!3m2!1sen!2sus!4v1655925404123!5m2!1sen!2sus"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943428.6045796977!2d76.68722225!3d10.2828327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c582b1189633%3A0x559a96427909a45d!2sTamil%20Nadu!5e0!3m2!1sen!2sin!4v1655925404123!5m2!1sen!2sin"
         style={{ border: 0 }}
         allowFullScreen={true}
         loading="lazy"

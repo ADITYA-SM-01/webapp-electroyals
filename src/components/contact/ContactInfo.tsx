@@ -14,9 +14,9 @@ const ContactInfo = () => {
           <div className="ml-4">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white">Office Address</h3>
             <p className="mt-1 text-gray-600 dark:text-gray-300">
-              123 Business Avenue, Suite 500<br />
-              San Francisco, CA 94107<br />
-              United States
+              123 Tech Park, Anna Salai<br />
+              Chennai, Tamil Nadu 600002<br />
+              India
             </p>
           </div>
         </div>
@@ -28,8 +28,8 @@ const ContactInfo = () => {
           <div className="ml-4">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white">Phone</h3>
             <p className="mt-1 text-gray-600 dark:text-gray-300">
-              Main: +1 (555) 123-4567<br />
-              Support: +1 (555) 987-6543
+              Main: +91 (044) 4567-8901<br />
+              Support: +91 (044) 8901-2345
             </p>
           </div>
         </div>
@@ -41,8 +41,8 @@ const ContactInfo = () => {
           <div className="ml-4">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white">Email</h3>
             <p className="mt-1 text-gray-600 dark:text-gray-300">
-              info@professionalteam.com<br />
-              support@professionalteam.com
+              info@electroyals.in<br />
+              support@electroyals.in
             </p>
           </div>
         </div>
