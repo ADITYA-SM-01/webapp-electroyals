@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 bg-black/60 dark:bg-black/60 backdrop-blur-md z-50 border-b border-indigo-900/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 md:py-6">
           {/* Logo */}
@@ -15,27 +15,27 @@ const Navbar = () => {
             <div className="w-8 h-8 rounded-full bg-transparent flex items-center justify-center overflow-hidden">
               <img src="/images/electroyals-icon.png" alt="ELECTROYALS" className="w-8 h-8 object-cover" />
             </div>
-            <span className="text-xl font-display font-bold tracking-tight">ELECTROYALS</span>
+            <span className="text-xl font-display font-bold tracking-tight text-white">ELECTROYALS</span>
           </Link>
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               Home
             </Link>
-            <Link to="/about" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/about" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               About
             </Link>
-            <Link to="/team" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/team" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               Team
             </Link>
-            <Link to="/services" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/services" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               Services
             </Link>
-            <Link to="/projects" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/projects" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               Projects
             </Link>
-            <Link to="/careers" className="text-sm font-medium hover:text-electroyals-500 transition-colors">
+            <Link to="/careers" className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
               Careers
             </Link>
           </nav>
@@ -43,7 +43,7 @@ const Navbar = () => {
           {/* CTA button */}
           <div className="hidden md:flex items-center gap-4">
             <Link to="/contact">
-              <Button className="rounded-full bg-gradient-to-r from-electroyals-500 to-electroyals-600 hover:from-electroyals-600 hover:to-electroyals-700 text-electroyals-navy">
+              <Button className="rounded-full bg-gradient-to-r from-blue-500/80 to-purple-600/80 hover:from-blue-600/90 hover:to-purple-700/90 text-white backdrop-blur-sm">
                 Contact Us
               </Button>
             </Link>
@@ -51,7 +51,7 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button 
-            className="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none"
+            className="md:hidden text-gray-300 hover:text-white focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -61,29 +61,29 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg">
+        <div className="md:hidden bg-gray-900/70 dark:bg-gray-900/70 backdrop-blur-md shadow-lg border-b border-indigo-900/30">
           <div className="px-4 pt-2 pb-6 space-y-4">
-            <Link to="/" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
-            <Link to="/about" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/about" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               About
             </Link>
-            <Link to="/team" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/team" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               Team
             </Link>
-            <Link to="/services" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/services" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               Services
             </Link>
-            <Link to="/projects" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/projects" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               Projects
             </Link>
-            <Link to="/careers" className="block py-2 text-base font-medium hover:text-electroyals-500" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/careers" className="block py-2 text-base font-medium text-gray-300 hover:text-blue-400" onClick={() => setIsMenuOpen(false)}>
               Careers
             </Link>
             <div className="flex flex-col space-y-3 pt-2">
               <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full rounded-full bg-gradient-to-r from-electroyals-500 to-electroyals-600 hover:from-electroyals-600 hover:to-electroyals-700 text-electroyals-navy">
+                <Button className="w-full rounded-full bg-gradient-to-r from-blue-500/80 to-purple-600/80 hover:from-blue-600/90 hover:to-purple-700/90 text-white backdrop-blur-sm">
                   Contact Us
                 </Button>
               </Link>

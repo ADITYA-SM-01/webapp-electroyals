@@ -1,21 +1,19 @@
 import React from 'react';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
-import { Helmet } from 'react-helmet';
 import ContactForm from '../components/contact/ContactForm';
 import ContactInfo from '../components/contact/ContactInfo';
 import ContactMap from '../components/contact/ContactMap';
+import SpaceThemeLayout from '../components/layouts/SpaceThemeLayout';
 
 const ContactPage = () => {
   return (
-    <>
-      <Helmet>
-        <title>Contact Us | ELECTROYALS</title>
-        <meta name="description" content="Get in touch with our team for inquiries, collaborations, or to discuss your project needs." />
-      </Helmet>
-      <Navbar />
-      <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8 text-center">Contact Us</h1>
+    <SpaceThemeLayout
+      title="Contact Us | ELECTROYALS"
+      description="Establish communication with our interstellar team for inquiries, collaborations, or to discuss your cosmic project needs."
+    >
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold mb-8 text-center text-white">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Contact</span> Us
+        </h1>
         <div className="grid md:grid-cols-2 gap-12">
           <ContactInfo />
           <ContactForm />
@@ -23,9 +21,8 @@ const ContactPage = () => {
         <div className="mt-16">
           <ContactMap />
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </SpaceThemeLayout>
   );
 };
 

@@ -1,4 +1,6 @@
 import React from "react";
+import { SimpleAnimation, SimpleStagger } from "../common/SimpleAnimation";
+import { motion } from "framer-motion";
 
 const projects = [
   {
@@ -49,7 +51,9 @@ const ProjectsGrid = () => {
   return (
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-wrap justify-center gap-4">
+        <SimpleAnimation 
+          className="mb-10 flex flex-wrap justify-center gap-4"
+        >
           <button className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium">
             All Projects
           </button>
@@ -65,12 +69,13 @@ const ProjectsGrid = () => {
           <button className="px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-700 text-sm font-medium transition-colors">
             App Development
           </button>
-        </div>
+        </SimpleAnimation>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <SimpleStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div 
+            <SimpleAnimation 
               key={index}
+              delay={index * 0.1}
               className="overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
             >
               <div className="h-56 overflow-hidden">
@@ -96,17 +101,21 @@ const ProjectsGrid = () => {
                   {project.description}
                 </p>
                 <div className="mt-4">
-                  <button className="text-blue-600 dark:text-blue-400 font-medium text-sm inline-flex items-center">
+                  <motion.button 
+                    whileHover={{ x: 5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="text-blue-600 dark:text-blue-400 font-medium text-sm inline-flex items-center"
+                  >
                     View Project Details
                     <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </div>
+            </SimpleAnimation>
           ))}
-        </div>
+        </SimpleStagger>
       </div>
     </section>
   );

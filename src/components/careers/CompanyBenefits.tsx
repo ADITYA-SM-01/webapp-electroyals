@@ -7,6 +7,8 @@ import {
   Globe, 
   Coffee
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { SimpleAnimation, SimpleStagger } from "../common/SimpleAnimation";
 
 const benefits = [
   {
@@ -45,22 +47,33 @@ const CompanyBenefits = () => {
   return (
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-            Benefits of Working With Us
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            We value our team members and offer a range of benefits to support your professional growth and personal wellbeing.
-          </p>
-        </div>
+        <SimpleAnimation>
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+              Benefits of Working With Us
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              We value our team members and offer a range of benefits to support your professional growth and personal wellbeing.
+            </p>
+          </div>
+        </SimpleAnimation>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <SimpleStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
-            <div 
+            <SimpleAnimation 
               key={index}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md p-8 transition-transform duration-300 hover:-translate-y-2"
+              delay={index * 0.1}
+              className="bg-gradient-to-br from-electroyals-50/80 to-electroyals-100/90 dark:from-electroyals-900/80 dark:to-electroyals-800/90 
+              backdrop-blur-sm rounded-xl p-8 shadow-md hover:shadow-xl 
+              hover:shadow-electroyals-300/20 dark:hover:shadow-electroyals-600/20 
+              transition-all duration-300 hover:-translate-y-1 relative overflow-hidden 
+              border border-electroyals-200/50 dark:border-electroyals-700/50"
             >
-              <div className="w-14 h-14 mb-6 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              {/* Decorative element */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-electroyals-200/30 dark:bg-electroyals-600/20 rounded-full blur-xl"></div>
+              
+              <div className="w-14 h-14 mb-6 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center 
+              shadow-inner shadow-electroyals-200 dark:shadow-electroyals-700 z-10 relative">
                 {benefit.icon}
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
@@ -69,9 +82,9 @@ const CompanyBenefits = () => {
               <p className="text-gray-600 dark:text-gray-300">
                 {benefit.description}
               </p>
-            </div>
+            </SimpleAnimation>
           ))}
-        </div>
+        </SimpleStagger>
       </div>
     </section>
   );

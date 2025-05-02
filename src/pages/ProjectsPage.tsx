@@ -1,28 +1,25 @@
 import React from 'react';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
-import { Helmet } from 'react-helmet';
 import ProjectsHero from '../components/projects/ProjectsHero';
 import ProjectsGrid from '../components/projects/ProjectsGrid';
 import ProjectStats from '../components/projects/ProjectStats';
 import ClientTestimonials from '../components/projects/ClientTestimonials';
+import ProjectsSpaceBackground from '../components/projects/ProjectsSpaceBackground';
+import SpaceThemeLayout from '../components/layouts/SpaceThemeLayout';
 
 const ProjectsPage = () => {
   return (
-    <>
-      <Helmet>
-        <title>Our Projects | ELECTROYALS</title>
-        <meta name="description" content="Browse our portfolio of successful projects and client case studies." />
-      </Helmet>
-      <Navbar />
-      <main>
-        <ProjectsHero />
-        <ProjectsGrid />
-        <ProjectStats />
-        <ClientTestimonials />
-      </main>
-      <Footer />
-    </>
+    <SpaceThemeLayout
+      title="Cosmic Projects | ELECTROYALS"
+      description="Explore our universe of groundbreaking projects and interstellar client success stories."
+    >
+      {/* Custom space background for Projects page */}
+      <ProjectsSpaceBackground />
+      
+      <ProjectsHero />
+      <ProjectsGrid />
+      <ProjectStats />
+      <ClientTestimonials />
+    </SpaceThemeLayout>
   );
 };
 

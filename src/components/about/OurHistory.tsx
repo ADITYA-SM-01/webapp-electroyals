@@ -1,77 +1,142 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { SimpleAnimation, SimpleStagger, slideUp, slideLeft, slideRight } from "../common/SimpleAnimation";
 
-const milestones = [
+const timelineItems = [
   {
-    year: "2015",
-    title: "Foundation",
-    description: "Our company was founded with a vision to deliver innovative solutions for businesses."
-  },
-  {
-    year: "2017",
-    title: "Growth & Expansion",
-    description: "Expanded our team and opened our first office in San Francisco."
+    year: "2018",
+    title: "Our Cosmic Journey Begins",
+    description: "Founded with a vision to deliver exceptional digital solutions and explore new frontiers in the digital universe."
   },
   {
     year: "2019",
-    title: "International Reach",
-    description: "Started working with international clients and expanded our service offerings."
+    title: "Stellar Expansion",
+    description: "Expanded our constellation of talent and services to include a wider range of digital transformation solutions."
+  },
+  {
+    year: "2020",
+    title: "Universal Adaptation",
+    description: "Pioneered remote work solutions during global challenges, helping businesses navigate through uncertain space."
   },
   {
     year: "2021",
-    title: "Industry Recognition",
-    description: "Received multiple industry awards for our excellence in service delivery."
+    title: "Quantum Innovation",
+    description: "Launched our proprietary technology platform, enabling businesses to achieve warp-speed operations."
+  },
+  {
+    year: "2022",
+    title: "Galactic Recognition",
+    description: "Received industry recognition for our innovative approaches and commitment to excellence across the digital galaxy."
   },
   {
     year: "2023",
-    title: "Innovation Leadership",
-    description: "Launched new innovative services and strengthened our position as industry leaders."
+    title: "New Frontiers",
+    description: "Continuing to explore uncharted territories, embrace new technologies, and expand our reach across the universe."
   }
 ];
 
 const OurHistory = () => {
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
-            Our Journey
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            From humble beginnings to industry leadership, explore the key milestones in our company's history.
-          </p>
-        </div>
+    <section className="py-16 bg-gradient-to-b from-gray-900/90 to-electroyals-navy/80 text-white relative overflow-hidden">
+      {/* Space-themed decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Stars */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0.1, scale: 0.5 }}
+            animate={{ 
+              opacity: [0.3, 0.8, 0.3], 
+              scale: [0.5, 1, 0.5]
+            }}
+            transition={{ 
+              duration: 3 + Math.random() * 4, 
+              repeat: Infinity, 
+              delay: Math.random() * 2,
+              ease: "easeInOut"
+            }}
+            className="absolute bg-white rounded-full w-1 h-1"
+            style={{ 
+              top: `${Math.random() * 100}%`, 
+              left: `${Math.random() * 100}%`,
+              boxShadow: "0 0 10px 2px rgba(255, 255, 255, 0.3)"
+            }}
+          />
+        ))}
+        
+        {/* Nebula glow */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.15 }}
+          transition={{ duration: 2 }}
+          className="absolute -top-20 -right-20 w-60 h-60 bg-blue-500 rounded-full blur-3xl"
+        />
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 2 }}
+          className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500 rounded-full blur-3xl"
+        />
+      </div>
 
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-200 dark:bg-blue-900/30 -translate-x-1/2"></div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <SimpleAnimation variants={slideUp}>
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-indigo-400">
+              Our Interstellar Timeline
+            </h2>
+            <p className="text-lg text-gray-300">
+              A journey through time and space - key milestones of our cosmic expedition.
+            </p>
+          </div>
+        </SimpleAnimation>
 
+        <div className="max-w-4xl mx-auto relative">
+          {/* Timeline center line - spacey glow */}
+          <motion.div 
+            initial={{ height: 0 }}
+            whileInView={{ height: '100%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5 }}
+            className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-400 to-purple-600 rounded-full"
+            style={{ boxShadow: "0 0 15px 2px rgba(79, 70, 229, 0.3)" }}
+          ></motion.div>
+          
           <div className="space-y-12">
-            {milestones.map((milestone, index) => (
-              <div key={index} className="relative">
-                <div className={`md:flex items-center ${index % 2 === 0 ? "" : "md:flex-row-reverse"}`}>
-                  {/* Year marker */}
-                  <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold z-10">
-                    {milestone.year}
-                  </div>
-
-                  {/* Content */}
-                  <div className={`md:w-1/2 ${index % 2 === 0 ? "md:pr-16" : "md:pl-16"} mb-8 md:mb-0`}>
-                    <div className="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md">
-                      <div className="md:hidden text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">
-                        {milestone.year}
-                      </div>
-                      <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        {milestone.description}
-                      </p>
+            {timelineItems.map((item, index) => (
+              <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} relative`}>
+                {/* Timeline dot - glowing planetary node */}
+                <motion.div 
+                  initial={{ scale: 0, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 * index, duration: 0.5 }}
+                  className="absolute left-1/2 transform -translate-x-1/2 w-5 h-5 rounded-full bg-blue-500 z-10"
+                  style={{ boxShadow: "0 0 15px 5px rgba(59, 130, 246, 0.5)" }}
+                ></motion.div>
+                
+                {/* Content card */}
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
+                  <SimpleAnimation 
+                    variants={index % 2 === 0 ? slideRight : slideLeft} 
+                    delay={0.2 * index}
+                  >
+                    <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm 
+                    rounded-xl p-6 shadow-md hover:shadow-xl 
+                    hover:shadow-blue-500/20 
+                    transition-all duration-300 hover:-translate-y-1 relative overflow-hidden 
+                    border border-blue-500/20">
+                      {/* Decorative element */}
+                      <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl"></div>
+                      
+                      <span className="inline-block bg-blue-900/50 text-blue-300 px-3 py-1 rounded-full text-sm font-medium mb-3 border border-blue-600/30">{item.year}</span>
+                      <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                      <p className="text-gray-300">{item.description}</p>
                     </div>
-                  </div>
-
-                  {/* Empty space for timeline alignment */}
-                  <div className="hidden md:block md:w-1/2"></div>
+                  </SimpleAnimation>
                 </div>
+                
+                <div className="w-5/12"></div>
               </div>
             ))}
           </div>
